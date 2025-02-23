@@ -1,0 +1,15 @@
+name: Laravel REST API
+
+services:
+    project-database:
+        container_name: moviesDB
+        image: mariadb:latest
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_DATABASE: moviesDB
+            MYSQL_USER: root
+            MYSQL_PASSWORD:
+        volumes:
+            - ./mariadb-data:/var/lib/mysql
+        ports:
+            - "3306:3306"
