@@ -29,5 +29,11 @@ Homestead.json
 .phpactor.json
 auth.json
 
+/.phpunit.cache
+/.fleet
+/.idea
+/.nova
+/.vscode
+/.zed
 
 /mariadb-data/
