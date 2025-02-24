@@ -33,7 +33,7 @@ class AgeRangeController extends Controller
      */
     public function show(string $id)
     {
-        return AgeRange::find($id);
+        return AgeRange::findOrFail($id);
     }
 
     /**
@@ -46,7 +46,7 @@ class AgeRangeController extends Controller
         ]);
 
         $ageRange = $this->show($id);
-        $ageRange->update($request->all()); #Updates the entire record
+        return $ageRange->update($request->all()); #Updates the entire record
     }
 
     /**
@@ -56,6 +56,6 @@ class AgeRangeController extends Controller
     {
         $ageRange = $this->show($id);
 
-        $ageRange->delete();
+        return $ageRange->delete();
     }
 }
