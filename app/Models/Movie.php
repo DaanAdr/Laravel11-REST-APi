@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Movie extends Model
 {
@@ -13,5 +14,10 @@ class Movie extends Model
     public function age_range(): BelongsTo
     {
         return $this->belongsTo(AgeRange::class);
+    }
+
+    public function actors(): BelongsToMany
+    {
+        return $this->belongsToMany(Actor::class, 'actor_movie');
     }
 }
