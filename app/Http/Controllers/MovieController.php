@@ -13,7 +13,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        $movies = Movie::with('age_range')->get();
+        $movies = Movie::with('age_range')->with('actors')->get();
         return MovieResource::collection($movies);
     }
 
