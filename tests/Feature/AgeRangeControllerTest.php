@@ -64,6 +64,43 @@ class AgeRangeControllerTest extends TestCase
     }
     #endregion
 
+    #region Update
+    public function test_update_age_range_returns_200_ok()
+    {
+        // Arrange
+        $age_range_prop = 'age_range';
+        $age_range = AgeRange::create([$age_range_prop => '99+']);
+
+        $id_to_update = $age_range->id;     // Pick the ID of the newly created item, as RefreshDatabase doesn't reset the auto-increment
+        $new_data = [$age_range_prop => '66+'];
+
+        // Act
+        $response = $this->patchJson("api/v1/age_range/$id_to_update", $new_data);
+        $responseContent = $response->getContent();
+        $responseBool = filter_var($responseContent, FILTER_VALIDATE_BOOLEAN);
+        // Assert
+        $response->assertStatus(200);
+        $this->assertTrue($responseBool);
+        $this->assertDatabaseHas("age_ranges", $new_data);
+    }
+
+    public function test_update_empty_age_range_return_422_unprocessable_content()
+    {
+        // Arrange
+        $age_range_prop = 'age_range';
+        $age_range = AgeRange::create([$age_range_prop => '99+']);
+
+        $id_to_update = $age_range->id;     // Pick the ID of the newly created item, as RefreshDatabase doesn't reset the auto-increment
+        $new_data = [$age_range_prop => ''];
+
+        // Act
+        $response = $this->patchJson("api/v1/age_range/$id_to_update", $new_data);
+        // Assert
+        $response->assertStatus(422);
+        $this->assertDatabaseMissing("age_ranges", $new_data);
+    }
+    #endregion
+
     #region Destroy
     public function test_destroy_removes_age_range_from_database()
     {

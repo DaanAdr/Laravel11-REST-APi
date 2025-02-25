@@ -42,7 +42,7 @@ class AgeRangeController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            "age_range" => "required|regex:/^[\p{L}]+$/u",
+            "age_range" => "required",
         ]);
 
         $ageRange = $this->show($id);
