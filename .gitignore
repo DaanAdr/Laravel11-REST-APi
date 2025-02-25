@@ -37,3 +37,4 @@ auth.json
 /.zed
 
 /mariadb-data/
+.env.testing
