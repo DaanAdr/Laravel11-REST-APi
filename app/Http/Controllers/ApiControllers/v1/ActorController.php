@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\ApiControllers\v1;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\ApiFormRequests\v1\ActorFormRequests\StoreActorFormRequest;
 use App\Models\Actor;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -20,12 +20,8 @@ class ActorController extends Controller
     /**
      * POST Actor
      */
-    public function store(Request $request): Actor
+    public function store(StoreActorFormRequest $request): Actor
     {
-        $request->validate([
-            "name" => "required",
-        ]);
-
-        return Actor::create($request->all());
+        return Actor::create($request->validated());
     }
 }
