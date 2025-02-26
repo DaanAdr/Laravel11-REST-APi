@@ -20,7 +20,7 @@ class AgeRangeController extends Controller
     /**
      * POST AgeRange
      */
-    public function store(Request $request)
+    public function store(Request $request): AgeRange
     {
         $request->validate([
             "age_range" => "required",
@@ -32,7 +32,7 @@ class AgeRangeController extends Controller
     /**
      * GET AgeRange by ID
      */
-    public function show(string $id)
+    public function show(int $id): AgeRange
     {
         return AgeRange::findOrFail($id);
     }
@@ -40,7 +40,7 @@ class AgeRangeController extends Controller
     /**
      * PUT AgeRange
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, int $id): bool
     {
         $request->validate([
             "age_range" => "required",
@@ -53,7 +53,7 @@ class AgeRangeController extends Controller
     /**
      * DELETE AgeRange
      */
-    public function destroy(string $id)
+    public function destroy(int $id): bool|null
     {
         $ageRange = $this->show($id);
 

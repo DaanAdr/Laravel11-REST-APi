@@ -14,7 +14,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return User
      */
-    public function register(Request $request)
+    public function register(Request $request): User
     {
         $request->validate([
             "name" => "required",
