@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ApiControllers\v1;
 
-use App\Models\AgeRange;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\AgeRange;
 use Illuminate\Database\Eloquent\Collection;
 
 class AgeRangeController extends Controller

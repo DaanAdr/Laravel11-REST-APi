@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ApiControllers\v1;
 
-use App\Http\Resources\MovieResource;
+use App\Http\Controllers\Controller;
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use App\Http\Resources\MovieResource;
 
 class MovieController extends Controller
 {

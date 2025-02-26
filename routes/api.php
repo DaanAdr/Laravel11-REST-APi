@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\ActorController;
-use App\Http\Controllers\AgeRangeController;
-use App\Http\Controllers\MovieController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\ApiControllers\v1\ActorController;
+use App\Http\Controllers\ApiControllers\v1\AgeRangeController;
+use App\Http\Controllers\ApiControllers\v1\MovieController;
+use App\Http\Controllers\ApiControllers\v1\UserController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/user', function (Request $request) {

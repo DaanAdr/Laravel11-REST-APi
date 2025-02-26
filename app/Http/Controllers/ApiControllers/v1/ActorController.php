@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ApiControllers\v1;
 
-use App\Models\Actor;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Actor;
 
 class ActorController extends Controller
 {
