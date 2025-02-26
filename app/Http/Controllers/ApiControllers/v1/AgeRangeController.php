@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ApiControllers\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ApiFormRequests\v1\AgeRangeFormRequests\StoreAgeRangeFormRequest;
 use Illuminate\Http\Request;
 use App\Models\AgeRange;
 use Illuminate\Database\Eloquent\Collection;
@@ -20,13 +21,9 @@ class AgeRangeController extends Controller
     /**
      * POST AgeRange
      */
-    public function store(Request $request): AgeRange
+    public function store(StoreAgeRangeFormRequest $request): AgeRange
     {
-        $request->validate([
-            "age_range" => "required",
-        ]);
-
-        return AgeRange::create($request->all());
+        return AgeRange::create($request->validated());
     }
 
     /**

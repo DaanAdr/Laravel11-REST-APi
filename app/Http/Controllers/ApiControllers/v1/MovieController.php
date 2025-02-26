@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\ApiControllers\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ApiFormRequests\v1\MovieFormRequests\StoreMovieFormRequest;
 use App\Models\Movie;
-use Illuminate\Http\Request;
 use App\Http\Resources\MovieResource;
 
 class MovieController extends Controller
@@ -21,13 +21,8 @@ class MovieController extends Controller
     /**
      * POST Movie
      */
-    public function store(Request $request): Movie
+    public function store(StoreMovieFormRequest $request): Movie
     {
-        $request->validate([
-            "age_range_id" => "required|regex:/^[-+]?\d+$/",
-            "name" => "required",
-        ]);
-
-        return Movie::create($request->all());
+        return Movie::create($request->validated());
     }
 }
