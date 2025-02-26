@@ -5,6 +5,8 @@ namespace App\Http\Controllers\ApiControllers\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiFormRequests\v1\UserFormRequests\LoginFormRequest;
 use App\Http\Requests\ApiFormRequests\v1\UserFormRequests\RegisterFormRequest;
+use App\Http\Resources\ApiResources\v1\LoginResource;
+use App\Http\Resources\ApiResources\v1\RegisterResource;
 use App\Models\User;
 use Auth;
 
@@ -12,32 +14,23 @@ class UserController extends Controller
 {
     /**
      * Register new user
-     * @param \App\Http\Requests\ApiFormRequests\v1\UserFormRequests\RegisterFormRequest $request
-     * @return User
      */
-    public function register(RegisterFormRequest $request): User
+    public function register(RegisterFormRequest $request): RegisterResource
     {
-        return User::create($request->validated());
+        $user = User::create($request->validated());
+        return new RegisterResource($user);
     }
 
     /**
      * Login
-     * @param \App\Http\Requests\ApiFormRequests\v1\UserFormRequests\LoginFormRequest $request
-     * @return mixed|\Illuminate\Http\JsonResponse
      */
     public function login(LoginFormRequest $request)
     {
-        // TODO: Use the form request
-        
         if(Auth::attempt(['email' => $request->email,'password'=> $request->password])) {
             $user = Auth::user();
-    
-            $response = [];
-            $response["token"] = $user->createToken("SuperSecretKey")->plainTextToken;
-            $response["name"] = $user->name;
-            $response["email"] = $user->email;
-           
-            return response()->json($response, 200);
+            $token = $user->createToken("SuperSecretKey")->plainTextToken;
+
+            return new LoginResource($user->setAttribute('token', $token));
         }
         else
         {

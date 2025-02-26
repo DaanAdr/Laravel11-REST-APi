@@ -4,24 +4,27 @@ namespace App\Http\Controllers\ApiControllers\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiFormRequests\v1\ActorFormRequests\StoreActorFormRequest;
+use App\Http\Resources\ApiResources\v1\ActorResource;
 use App\Models\Actor;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ActorController extends Controller
 {
     /**
      * GET all Actors
      */
-    public function index(): Collection
+    public function index(): AnonymousResourceCollection
     {
-        return Actor::all();
+        $actors = Actor::all();
+        return ActorResource::collection($actors);
     }
 
     /**
      * POST Actor
      */
-    public function store(StoreActorFormRequest $request): Actor
+    public function store(StoreActorFormRequest $request): ActorResource
     {
-        return Actor::create($request->validated());
+        $actor = Actor::create($request->validated());
+        return new ActorResource($actor);
     }
 }

@@ -4,34 +4,38 @@ namespace App\Http\Controllers\ApiControllers\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiFormRequests\v1\AgeRangeFormRequests\StoreAgeRangeFormRequest;
+use App\Http\Resources\ApiResources\v1\AgeRangeResource;
 use Illuminate\Http\Request;
 use App\Models\AgeRange;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class AgeRangeController extends Controller
 {
     /**
      * GET all AgeRanges
      */
-    public function index(): Collection
+    public function index(): AnonymousResourceCollection
     {
-        return AgeRange::all();
+        $age_ranges = AgeRange::all();
+        return AgeRangeResource::collection($age_ranges);
     }
 
     /**
      * POST AgeRange
      */
-    public function store(StoreAgeRangeFormRequest $request): AgeRange
+    public function store(StoreAgeRangeFormRequest $request): AgeRangeResource
     {
-        return AgeRange::create($request->validated());
+        $age_range = AgeRange::create($request->validated());
+        return new AgeRangeResource($age_range);
     }
 
     /**
      * GET AgeRange by ID
      */
-    public function show(int $id): AgeRange
+    public function show(int $id): AgeRangeResource
     {
-        return AgeRange::findOrFail($id);
+        $age_range = AgeRange::findOrFail($id);
+        return new AgeRangeResource($age_range);
     }
 
     /**
