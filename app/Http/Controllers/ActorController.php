@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ActorController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * GET all Actors
      */
     public function index()
     {
@@ -16,7 +16,7 @@ class ActorController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * POST Actor
      */
     public function store(Request $request)
     {
@@ -25,29 +25,5 @@ class ActorController extends Controller
         ]);
 
         return Actor::create($request->all());
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

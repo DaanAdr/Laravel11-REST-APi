@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class MovieController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * GET all Movies
      */
     public function index()
     {
@@ -18,7 +18,7 @@ class MovieController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * POST Movie
      */
     public function store(Request $request)
     {
@@ -28,29 +28,5 @@ class MovieController extends Controller
         ]);
 
         return Movie::create($request->all());
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Movie $movie)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Movie $movie)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Movie $movie)
-    {
-        //
     }
 }
