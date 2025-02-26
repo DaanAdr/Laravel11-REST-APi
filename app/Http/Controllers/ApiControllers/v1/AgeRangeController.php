@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\ApiControllers\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ApiFormRequests\v1\AgeRangeFormRequests\StoreAgeRangeFormRequest;
+use App\Http\Requests\ApiFormRequests\v1\StoreAgeRangeFormRequest;
 use App\Http\Resources\ApiResources\v1\AgeRangeResource;
 use Illuminate\Http\Request;
 use App\Models\AgeRange;

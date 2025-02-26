@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\ApiControllers\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ApiFormRequests\v1\UserFormRequests\LoginFormRequest;
-use App\Http\Requests\ApiFormRequests\v1\UserFormRequests\RegisterFormRequest;
+use App\Http\Requests\ApiFormRequests\v1\LoginFormRequest;
+use App\Http\Requests\ApiFormRequests\v1\RegisterFormRequest;
 use App\Http\Resources\ApiResources\v1\LoginResource;
 use App\Http\Resources\ApiResources\v1\RegisterResource;
 use App\Models\User;

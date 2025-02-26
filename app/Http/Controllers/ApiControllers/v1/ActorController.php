@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\ApiControllers\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ApiFormRequests\v1\ActorFormRequests\StoreActorFormRequest;
+use App\Http\Requests\ApiFormRequests\v1\StoreActorFormRequest;
 use App\Http\Resources\ApiResources\v1\ActorResource;
 use App\Models\Actor;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;

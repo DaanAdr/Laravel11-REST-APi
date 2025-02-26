@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests\ApiFormRequests\v1\AgeRangeFormRequests;
+namespace App\Http\Requests\ApiFormRequests\v1;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreAgeRangeFormRequest extends FormRequest
+class LoginFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return auth()->check();
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class StoreAgeRangeFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'age_range' => 'required|string|max:255'
+            "email" => "required|email",
+            "password" => "required|string|max:255",
         ];
     }
 }
