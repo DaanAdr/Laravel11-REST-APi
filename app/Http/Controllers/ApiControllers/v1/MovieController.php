@@ -21,7 +21,7 @@ class MovieController extends Controller
     /**
      * POST Movie
      */
-    public function store(Request $request)
+    public function store(Request $request): Movie
     {
         $request->validate([
             "age_range_id" => "required|regex:/^[-+]?\d+$/",
