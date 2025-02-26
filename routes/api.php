@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 // })->middleware('auth:sanctum');
 
 Route::prefix('/v1')->group(function () {
+    // Group of routes that require authentication
     Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('/age_range', AgeRangeController::class);
 
@@ -19,6 +20,7 @@ Route::prefix('/v1')->group(function () {
         Route::apiResource('/actor', ActorController::class)->except(['update', 'show', 'destroy']);
     });
 
+    // Routes that can be gotten without authentication
     Route::get('/movie', [MovieController::class, 'index']);
     
     Route::prefix('/user')->group(function () {
