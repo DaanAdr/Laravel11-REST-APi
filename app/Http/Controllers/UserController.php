@@ -8,6 +8,11 @@ use Auth;
 
 class UserController extends Controller
 {
+    /**
+     * POST register
+     * @param \Illuminate\Http\Request $request
+     * @return User
+     */
     public function register(Request $request)
     {
         $request->validate([
@@ -19,6 +24,11 @@ class UserController extends Controller
         return User::create($request->all());
     }
 
+    /**
+     * POST login
+     * @param \Illuminate\Http\Request $request
+     * @return mixed|\Illuminate\Http\JsonResponse
+     */
     public function login(Request $request)
     {
         if(Auth::attempt(['email' => $request->email,'password'=> $request->password])) {
