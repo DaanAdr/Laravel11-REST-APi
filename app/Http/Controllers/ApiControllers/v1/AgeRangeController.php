@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ApiControllers\v1;
 
-use App\Models\AgeRange;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\AgeRange;
 use Illuminate\Database\Eloquent\Collection;
 
 class AgeRangeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * GET all AgeRanges
      */
     public function index(): Collection
     {
@@ -17,7 +18,7 @@ class AgeRangeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * POST AgeRange
      */
     public function store(Request $request)
     {
@@ -29,7 +30,7 @@ class AgeRangeController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * GET AgeRange by ID
      */
     public function show(string $id)
     {
@@ -37,7 +38,7 @@ class AgeRangeController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * PUT AgeRange
      */
     public function update(Request $request, string $id)
     {
@@ -50,7 +51,7 @@ class AgeRangeController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * DELETE AgeRange
      */
     public function destroy(string $id)
     {
