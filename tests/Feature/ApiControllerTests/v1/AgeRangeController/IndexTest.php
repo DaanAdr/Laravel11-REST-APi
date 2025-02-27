@@ -14,19 +14,13 @@ class IndexTest extends TestCase
     public function test_index_returns_all_age_ranges()
     {
         // Arrange
-        // Create new user and get token
-        $token = SharedFunctions::authenticate();
-
         // Seed database with AgeRange objects
         $age_range_prop = 'age_range';
         $age_range_one = AgeRange::create([$age_range_prop => '5-8']);
         $age_range_two = AgeRange::create([$age_range_prop => '9-13']);
 
         // Act
-        $headers = [
-            'Accept' => 'application/json',
-            'Authorization' => 'Bearer ' . $token
-        ];
+        $headers = SharedFunctions::get_authenticated_header();
 
         // Call the endpoint to test
         $response = $this->get('/api/v1/age_range', $headers);
@@ -42,9 +36,7 @@ class IndexTest extends TestCase
     public function test_index_without_token_returns_401_unauthorized()
     {
         // Act
-        $headers = [
-            'Accept' => 'application/json'
-        ];
+        $headers = SharedFunctions::get_unauthenticated_header();
 
         // Call the endpoint to test
         $response = $this->get('/api/v1/age_range', $headers);

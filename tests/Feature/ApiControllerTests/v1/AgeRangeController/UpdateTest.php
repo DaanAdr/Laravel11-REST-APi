@@ -5,7 +5,6 @@ namespace Tests\Feature\ApiControllerTests\v1\AgeRangeController;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Feature\ApiControllerTests\v1\SharedFunctions;
 use Tests\TestCase;
-use App\Models\AgeRange;
 
 class UpdateTest extends TestCase
 {
@@ -14,20 +13,13 @@ class UpdateTest extends TestCase
     public function test_update_age_range_returns_200_ok()
     {
         // Arrange
-        $token = SharedFunctions::authenticate();
-
-        // Seed database with AgeRange objects
-        $age_range_prop = 'age_range';
-        $age_range = AgeRange::create([$age_range_prop => '99+']);
+        $age_range = SharedFunctions::seed_one_age_range_to_database();
 
         // Create changes to update
-        $new_data = [$age_range_prop => '66+'];
+        $new_data = ['age_range' => '66+'];
 
         // Act
-        $headers = [
-            'Accept' => 'application/json',
-            'Authorization' => 'Bearer ' . $token
-        ];
+        $headers = SharedFunctions::get_authenticated_header();
 
         $response = $this->patchJson("api/v1/age_range/$age_range->id", $new_data, $headers);
         $responseContent = $response->getContent();
@@ -42,23 +34,15 @@ class UpdateTest extends TestCase
     public function test_update_empty_age_range_return_422_unprocessable_content()
     {
         // Arrange
-        $token = SharedFunctions::authenticate();
-
-        // Seed database with AgeRange objects
-        $age_range_prop = 'age_range';
-        $age_range = AgeRange::create([$age_range_prop => '99+']);
+        $age_range = SharedFunctions::seed_one_age_range_to_database();
 
         // Create changes to update
-        $id_to_update = $age_range->id;     // Pick the ID of the newly created item, as RefreshDatabase doesn't reset the auto-increment
-        $new_data = [$age_range_prop => ''];
+        $new_data = ['age_range' => ''];
 
         // Act
-        $headers = [
-            'Accept' => 'application/json',
-            'Authorization' => 'Bearer ' . $token
-        ];
+        $headers = SharedFunctions::get_authenticated_header();
 
-        $response = $this->patchJson("api/v1/age_range/$id_to_update", $new_data, $headers);
+        $response = $this->patchJson("api/v1/age_range/$age_range->id", $new_data, $headers);
 
         // Assert
         $response->assertStatus(422);
@@ -68,20 +52,14 @@ class UpdateTest extends TestCase
     public function test_update_without_token_returns_401_unauthorized()
     {
         // Arrange
-        // Seed database with AgeRange objects
-        $age_range_prop = 'age_range';
-        $age_range = AgeRange::create([$age_range_prop => '99+']);
+        $age_range = SharedFunctions::seed_one_age_range_to_database();
 
-        // Create changes to update
-        $id_to_update = $age_range->id;     // Pick the ID of the newly created item, as RefreshDatabase doesn't reset the auto-increment
-        $new_data = [$age_range_prop => '66+'];
+        $new_data = ['age_range' => '66+'];
 
         // Act
-        $headers = [
-            'Accept' => 'application/json'
-        ];
+        $headers = SharedFunctions::get_unauthenticated_header();
 
-        $response = $this->patchJson("api/v1/age_range/$id_to_update", $new_data, $headers);
+        $response = $this->patchJson("api/v1/age_range/$age_range->id", $new_data, $headers);
         $responseContent = json_decode($response->getContent(), true);
 
         // Assert
