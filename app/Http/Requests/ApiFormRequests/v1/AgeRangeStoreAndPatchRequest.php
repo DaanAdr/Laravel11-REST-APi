@@ -14,7 +14,7 @@ class AgeRangeStoreAndPatchRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'age_range' => 'required|string|max:255'
+            'age_range' => 'required|string|max:255',
         ];
     }
 }

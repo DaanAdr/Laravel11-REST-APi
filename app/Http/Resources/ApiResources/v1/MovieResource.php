@@ -18,7 +18,7 @@ class MovieResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'age_range' => $this->age_range->age_range, // Accessing the string value
-            'actors' => $this->actors->pluck('name')->toArray()
+            'actors' => $this->actors->pluck('name')->toArray(),
         ];
     }
 }

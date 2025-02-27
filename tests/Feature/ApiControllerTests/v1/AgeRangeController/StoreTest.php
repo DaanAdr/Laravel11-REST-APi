@@ -37,7 +37,7 @@ class StoreTest extends TestCase
         $headers = SharedFunctions::get_authenticated_header();
 
         $response = $this->postJson('/api/v1/age_range', $data, $headers);
-        $responseContent = json_decode($response->getContent() , true);
+        $responseContent = json_decode($response->getContent(), true);
 
         // Assert
         $response->assertStatus(422);
@@ -54,10 +54,10 @@ class StoreTest extends TestCase
         $headers = SharedFunctions::get_unauthenticated_header();
 
         $response = $this->postJson('/api/v1/age_range', $data, $headers);
-        $responseContent = json_decode($response->getContent() , true);
+        $responseContent = json_decode($response->getContent(), true);
 
         // Assert
         $response->assertStatus(401);
-        $this->assertEquals(["message" => "Unauthenticated."], $responseContent);
+        $this->assertEquals(['message' => 'Unauthenticated.'], $responseContent);
     }
 }

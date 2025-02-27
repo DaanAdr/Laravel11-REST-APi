@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\ApiControllerTests\v1\AgeRangeController;
 
+use App\Models\AgeRange;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Feature\ApiControllerTests\v1\SharedFunctions;
 use Tests\TestCase;
-use App\Models\AgeRange;
 
 class IndexTest extends TestCase
 {
@@ -44,6 +44,6 @@ class IndexTest extends TestCase
 
         // Assert
         $response->assertStatus(401);
-        $this->assertEquals(["message" => "Unauthenticated."], $responseContent);
+        $this->assertEquals(['message' => 'Unauthenticated.'], $responseContent);
     }
 }

@@ -49,6 +49,6 @@ class DestroyTest extends TestCase
 
         // Assert
         $response->assertStatus(401);
-        $this->assertEquals(["message" => "Unauthenticated."], $responseContent);
+        $this->assertEquals(['message' => 'Unauthenticated.'], $responseContent);
     }
 }

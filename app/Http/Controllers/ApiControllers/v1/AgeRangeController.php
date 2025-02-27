@@ -16,6 +16,7 @@ class AgeRangeController extends Controller
     public function index(): AnonymousResourceCollection
     {
         $age_ranges = AgeRange::all();
+
         return AgeRangeResource::collection($age_ranges);
     }
 
@@ -25,6 +26,7 @@ class AgeRangeController extends Controller
     public function store(AgeRangeStoreAndPatchRequest $request): AgeRangeResource
     {
         $age_range = AgeRange::create($request->validated());
+
         return new AgeRangeResource($age_range);
     }
 
@@ -34,6 +36,7 @@ class AgeRangeController extends Controller
     public function show(int $id): AgeRangeResource
     {
         $age_range = AgeRange::findOrFail($id);
+
         return new AgeRangeResource($age_range);
     }
 
@@ -53,7 +56,7 @@ class AgeRangeController extends Controller
     public function destroy(int $id): bool
     {
         $age_range = AgeRange::findOrFail($id);
-    
+
         return $age_range->delete() === true; // This is to ensure a boolean return type
     }
 }

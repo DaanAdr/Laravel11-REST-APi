@@ -16,6 +16,7 @@ class ActorController extends Controller
     public function index(): AnonymousResourceCollection
     {
         $actors = Actor::all();
+
         return ActorResource::collection($actors);
     }
 
@@ -25,6 +26,7 @@ class ActorController extends Controller
     public function store(StoreActorFormRequest $request): ActorResource
     {
         $actor = Actor::create($request->validated());
+
         return new ActorResource($actor);
     }
 }

@@ -18,6 +18,7 @@ class UserController extends Controller
     public function register(RegisterFormRequest $request): RegisterResource
     {
         $user = User::create($request->validated());
+
         return new RegisterResource($user);
     }
 
@@ -26,15 +27,13 @@ class UserController extends Controller
      */
     public function login(LoginFormRequest $request)
     {
-        if(Auth::attempt(['email' => $request->email,'password'=> $request->password])) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
-            $token = $user->createToken("SuperSecretKey")->plainTextToken;
+            $token = $user->createToken('SuperSecretKey')->plainTextToken;
 
             return new LoginResource($user->setAttribute('token', $token));
-        }
-        else
-        {
-            return response()->json(["error"=> "No such user"],404);
+        } else {
+            return response()->json(['error' => 'No such user'], 404);
         }
     }
 }

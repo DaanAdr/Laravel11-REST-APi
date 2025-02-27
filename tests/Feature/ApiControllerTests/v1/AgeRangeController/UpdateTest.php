@@ -28,7 +28,7 @@ class UpdateTest extends TestCase
         // Assert
         $response->assertStatus(200);
         $this->assertTrue($responseBool);
-        $this->assertDatabaseHas("age_ranges", $new_data);
+        $this->assertDatabaseHas('age_ranges', $new_data);
     }
 
     public function test_update_empty_age_range_return_422_unprocessable_content()
@@ -46,7 +46,7 @@ class UpdateTest extends TestCase
 
         // Assert
         $response->assertStatus(422);
-        $this->assertDatabaseMissing("age_ranges", $new_data);
+        $this->assertDatabaseMissing('age_ranges', $new_data);
     }
 
     public function test_update_without_token_returns_401_unauthorized()
@@ -64,7 +64,7 @@ class UpdateTest extends TestCase
 
         // Assert
         $response->assertStatus(401);
-        $this->assertEquals(["message" => "Unauthenticated."], $responseContent);
+        $this->assertEquals(['message' => 'Unauthenticated.'], $responseContent);
     }
 
     public function test_update_age_range_with_incorrect_id_returns_404_not_found()
@@ -76,7 +76,7 @@ class UpdateTest extends TestCase
         // Act
         $headers = SharedFunctions::get_authenticated_header();
 
-        $response = $this->patchJson("api/v1/age_range/555", $new_data, $headers);
+        $response = $this->patchJson('api/v1/age_range/555', $new_data, $headers);
 
         // Assert
         $response->assertStatus(404);

@@ -15,8 +15,8 @@ class AgeRangeResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "id"=> $this->id,
-            "age_range" => $this->age_range
+            'id' => $this->id,
+            'age_range' => $this->age_range,
         ];
     }
 }

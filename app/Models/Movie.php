@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Movie extends Model
 {
     protected $fillable = ['name', 'age_range_id'];
-    protected $hidden = ['created_at', 'updated_at', "age_range_id"];
+
+    protected $hidden = ['created_at', 'updated_at', 'age_range_id'];
 
     public function age_range(): BelongsTo
     {

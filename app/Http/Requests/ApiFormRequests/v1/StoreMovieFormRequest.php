@@ -14,8 +14,8 @@ class StoreMovieFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "age_range_id" => "required|integer|exists:age_ranges,id",
-            "name" => "required|string|max:255",
+            'age_range_id' => 'required|integer|exists:age_ranges,id',
+            'name' => 'required|string|max:255',
         ];
     }
 }
