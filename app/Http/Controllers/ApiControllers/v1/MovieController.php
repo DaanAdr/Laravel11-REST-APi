@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\ApiControllers\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ApiFormRequests\v1\StoreMovieFormRequest;
 use App\Models\Movie;
-use Illuminate\Http\Request;
-use App\Http\Resources\MovieResource;
+use App\Http\Resources\ApiResources\v1\MovieResource;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class MovieController extends Controller
 {
     /**
      * GET all Movies
      */
-    public function index()
+    public function index(): AnonymousResourceCollection
     {
         $movies = Movie::with('age_range')->with('actors')->get();
         return MovieResource::collection($movies);
@@ -21,13 +22,9 @@ class MovieController extends Controller
     /**
      * POST Movie
      */
-    public function store(Request $request): Movie
+    public function store(StoreMovieFormRequest $request): MovieResource
     {
-        $request->validate([
-            "age_range_id" => "required|regex:/^[-+]?\d+$/",
-            "name" => "required",
-        ]);
-
-        return Movie::create($request->all());
+        $movie = Movie::create($request->validated());
+        return new MovieResource($movie);
     }
 }

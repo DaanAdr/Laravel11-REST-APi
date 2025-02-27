@@ -3,60 +3,57 @@
 namespace App\Http\Controllers\ApiControllers\v1;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\ApiFormRequests\v1\AgeRangeStoreAndPatchRequest;
+use App\Http\Resources\ApiResources\v1\AgeRangeResource;
 use App\Models\AgeRange;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class AgeRangeController extends Controller
 {
     /**
      * GET all AgeRanges
      */
-    public function index(): Collection
+    public function index(): AnonymousResourceCollection
     {
-        return AgeRange::all();
+        $age_ranges = AgeRange::all();
+        return AgeRangeResource::collection($age_ranges);
     }
 
     /**
      * POST AgeRange
      */
-    public function store(Request $request): AgeRange
+    public function store(AgeRangeStoreAndPatchRequest $request): AgeRangeResource
     {
-        $request->validate([
-            "age_range" => "required",
-        ]);
-
-        return AgeRange::create($request->all());
+        $age_range = AgeRange::create($request->validated());
+        return new AgeRangeResource($age_range);
     }
 
     /**
      * GET AgeRange by ID
      */
-    public function show(int $id): AgeRange
+    public function show(int $id): AgeRangeResource
     {
-        return AgeRange::findOrFail($id);
+        $age_range = AgeRange::findOrFail($id);
+        return new AgeRangeResource($age_range);
     }
 
     /**
      * PUT AgeRange
      */
-    public function update(Request $request, int $id): bool
+    public function update(int $id, AgeRangeStoreAndPatchRequest $request): bool
     {
-        $request->validate([
-            "age_range" => "required",
-        ]);
+        $age_range = AgeRange::findOrFail($id);
 
-        $ageRange = $this->show($id);
-        return $ageRange->update($request->all()); #Updates the entire record
+        return $age_range->update($request->validated());
     }
 
     /**
      * DELETE AgeRange
      */
-    public function destroy(int $id): bool|null
+    public function destroy(int $id): bool
     {
-        $ageRange = $this->show($id);
-
-        return $ageRange->delete();
+        $age_range = AgeRange::findOrFail($id);
+    
+        return $age_range->delete() === true; // This is to ensure a boolean return type
     }
 }
