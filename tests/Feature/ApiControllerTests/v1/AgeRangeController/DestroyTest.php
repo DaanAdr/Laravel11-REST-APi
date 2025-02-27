@@ -18,7 +18,7 @@ class DestroyTest extends TestCase
         // Act
         $headers = SharedFunctions::get_authenticated_header();
 
-        $response = $this->delete("/api/v1/age_range/$age_range->id", [], $headers);
+        $response = $this->deleteJson("/api/v1/age_range/$age_range->id", [], $headers);
         $responseContent = $response->getContent();
         $responseBool = filter_var($responseContent, FILTER_VALIDATE_BOOLEAN);
 
@@ -33,7 +33,7 @@ class DestroyTest extends TestCase
         // Act
         $headers = SharedFunctions::get_authenticated_header();
 
-        $response = $this->delete('api/v1/age_range/103', [], $headers);
+        $response = $this->deleteJson('api/v1/age_range/103', [], $headers);
 
         // Assert
         $response->assertStatus(404);
@@ -44,7 +44,7 @@ class DestroyTest extends TestCase
         // Act
         $headers = SharedFunctions::get_unauthenticated_header();
 
-        $response = $this->delete('api/v1/age_range/103', [], $headers);
+        $response = $this->deleteJson('api/v1/age_range/103', [], $headers);
         $responseContent = json_decode($response->getContent(), true);
 
         // Assert

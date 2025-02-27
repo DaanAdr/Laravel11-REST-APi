@@ -53,12 +53,7 @@ class AgeRangeController extends Controller
     public function destroy(int $id): bool
     {
         $age_range = AgeRange::findOrFail($id);
-
-        if ($age_range) {
-            $deleted = $age_range->delete();
-            return $deleted === true;   // This is to ensure a boolean return type
-        }
     
-        return false;
+        return $age_range->delete() === true; // This is to ensure a boolean return type
     }
 }

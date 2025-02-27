@@ -66,4 +66,19 @@ class UpdateTest extends TestCase
         $response->assertStatus(401);
         $this->assertEquals(["message" => "Unauthenticated."], $responseContent);
     }
+
+    public function test_update_age_range_with_incorrect_id_returns_404_not_found()
+    {
+        // Arrange
+        // Create changes to update
+        $new_data = ['age_range' => '35-45'];
+
+        // Act
+        $headers = SharedFunctions::get_authenticated_header();
+
+        $response = $this->patchJson("api/v1/age_range/555", $new_data, $headers);
+
+        // Assert
+        $response->assertStatus(404);
+    }
 }
