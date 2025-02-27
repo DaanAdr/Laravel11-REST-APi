@@ -4,7 +4,7 @@ namespace App\Http\Requests\ApiFormRequests\v1;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreAgeRangeFormRequest extends FormRequest
+class AgeRangeStoreAndPatchRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

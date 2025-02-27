@@ -3,9 +3,9 @@
 namespace Tests\Feature\ApiControllerTests\v1\AgeRangeController;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\Feature\ApiControllerTests\v1\SharedFunctions;
 use Tests\TestCase;
 use App\Models\AgeRange;
-use App\Models\User;
 
 class IndexTest extends TestCase
 {
@@ -15,8 +15,7 @@ class IndexTest extends TestCase
     {
         // Arrange
         // Create new user and get token
-        $user = User::create(['name' => 'Test', 'email' => 'test@test.com', 'password' => 'password']);
-        $token = $user->createToken('TestToken')->plainTextToken;
+        $token = SharedFunctions::authenticate();
 
         // Seed database with AgeRange objects
         $age_range_prop = 'age_range';
@@ -31,7 +30,7 @@ class IndexTest extends TestCase
 
         // Call the endpoint to test
         $response = $this->get('/api/v1/age_range', $headers);
-        $responseContent = json_decode($response->getContent(), true);
+        $responseContent = json_decode($response->getContent(), true)['data'];
 
         // Assert
         $response->assertStatus(200);

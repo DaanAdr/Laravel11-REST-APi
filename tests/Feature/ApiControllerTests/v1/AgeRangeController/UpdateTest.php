@@ -3,9 +3,9 @@
 namespace Tests\Feature\ApiControllerTests\v1\AgeRangeController;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\Feature\ApiControllerTests\v1\SharedFunctions;
 use Tests\TestCase;
 use App\Models\AgeRange;
-use App\Models\User;
 
 class UpdateTest extends TestCase
 {
@@ -14,16 +14,13 @@ class UpdateTest extends TestCase
     public function test_update_age_range_returns_200_ok()
     {
         // Arrange
-        // Create new user and get token
-        $user = User::create(['name' => 'Test', 'email' => 'test@test.com', 'password' => 'password']);
-        $token = $user->createToken('TestToken')->plainTextToken;
+        $token = SharedFunctions::authenticate();
 
         // Seed database with AgeRange objects
         $age_range_prop = 'age_range';
         $age_range = AgeRange::create([$age_range_prop => '99+']);
 
         // Create changes to update
-        $id_to_update = $age_range->id;     // Pick the ID of the newly created item, as RefreshDatabase doesn't reset the auto-increment
         $new_data = [$age_range_prop => '66+'];
 
         // Act
@@ -32,7 +29,7 @@ class UpdateTest extends TestCase
             'Authorization' => 'Bearer ' . $token
         ];
 
-        $response = $this->patchJson("api/v1/age_range/$id_to_update", $new_data, $headers);
+        $response = $this->patchJson("api/v1/age_range/$age_range->id", $new_data, $headers);
         $responseContent = $response->getContent();
         $responseBool = filter_var($responseContent, FILTER_VALIDATE_BOOLEAN);
 
@@ -45,9 +42,7 @@ class UpdateTest extends TestCase
     public function test_update_empty_age_range_return_422_unprocessable_content()
     {
         // Arrange
-        // Create new user and get token
-        $user = User::create(['name' => 'Test', 'email' => 'test@test.com', 'password' => 'password']);
-        $token = $user->createToken('TestToken')->plainTextToken;
+        $token = SharedFunctions::authenticate();
 
         // Seed database with AgeRange objects
         $age_range_prop = 'age_range';

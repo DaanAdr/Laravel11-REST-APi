@@ -3,8 +3,8 @@
 namespace Tests\Feature\ApiControllerTests\v1\AgeRangeController;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\Feature\ApiControllerTests\v1\SharedFunctions;
 use Tests\TestCase;
-use App\Models\User;
 
 class StoreTest extends TestCase
 {
@@ -13,9 +13,7 @@ class StoreTest extends TestCase
     public function test_store_creates_new_age_range()
     {
         // Arrange
-        // Create new user and get token
-        $user = User::create(['name' => 'Test', 'email' => 'test@test.com', 'password' => 'password']);
-        $token = $user->createToken('TestToken')->plainTextToken;
+        $token = SharedFunctions::authenticate();
 
         $age_range_prop = 'age_range';
         $data = [$age_range_prop => '10-20'];
@@ -27,23 +25,18 @@ class StoreTest extends TestCase
         ];
 
         $response = $this->postJson('/api/v1/age_range', $data, $headers);
-        $responseContent = json_decode($response->getContent(), true);
+        $responseContent = json_decode($response->getContent(), true)['data'];
 
         // Assert
-        $response->assertStatus(201)
-                 ->assertJsonStructure(['id', $age_range_prop]);
-
+        $response->assertStatus(201);
         $this->assertEquals($data[$age_range_prop], $responseContent[$age_range_prop]);
-
         $this->assertDatabaseHas('age_ranges', $data);
     }
 
     public function test_store_with_empty_age_range_returns_422_unprocessable_content()
     {
         // Arrange
-        // Create new user and get token
-        $user = User::create(['name' => 'Test', 'email' => 'test@test.com', 'password' => 'password']);
-        $token = $user->createToken('TestToken')->plainTextToken;
+        $token = SharedFunctions::authenticate();
 
         $data = ['age_range' => ''];
 

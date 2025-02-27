@@ -28,4 +28,3 @@ Route::prefix('/v1')->group(function () {
         Route::post('/login', [UserController::class, 'login']);
     });
 });
-#endregion
